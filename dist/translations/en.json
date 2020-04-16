@@ -1,0 +1,8 @@
+{
+  "app": {
+    "name": "Slingshow",
+    "short_description": "Request screen recordings from your customers",
+    "long_description": "Easily request screen recordings from your customers with nothing to download",
+    "installation_instructions": "Simply click the install button"
+  }
+}

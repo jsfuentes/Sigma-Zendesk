@@ -1,0 +1,53 @@
+@tailwind base;
+
+@font-face {
+  font-family: "Calibre";
+  src: url("../fonts/Calibre/CalibreTest-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url("../fonts/Calibre/CalibreTest-Medium.woff") format("woff");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url("../fonts/Calibre/CalibreTest-Semibold.woff") format("woff");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url("../fonts/Calibre/CalibreTest-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+}
+
+html,
+body {
+  @apply font-sans text-base bg-gray-300;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* box-sizing: border-box; */
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.overflow-text {
+  @apply overflow-hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@tailwind components;
+@tailwind utilities;

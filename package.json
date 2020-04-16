@@ -1,0 +1,13 @@
+{
+  "name": "sigma",
+  "version": "1.0.0",
+  "author": "Jorge Fuentes & Nilay Modi",
+  "private": true,
+  "scripts": {
+    "setup": "cd iframe && yarn"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "dependencies": {}
+}
