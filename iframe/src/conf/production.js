@@ -1,5 +1,5 @@
 export default {
   NAME: "React Prod",
-  SERVER_URL: "http://localhost:3001",
+  SERVER_URL: "https://www.slingshow.com",
   CLIENT_URL: "https://sigma-zendesk-iframe.now.sh",
 };

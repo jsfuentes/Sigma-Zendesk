@@ -33,6 +33,7 @@ export default function Oauth() {
       };
       debug("OAUTH Payload", { payload });
       const resp = await hitAPI(
+        //TODO: Properly handle this error
         zClient,
         "/api/user/login/zendesk",
         "POST",

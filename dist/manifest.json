@@ -6,21 +6,12 @@
     "url": "https://www.slingshow.com"
   },
   "defaultLocale": "en",
-  "private": true,
+  "private": false,
   "location": {
     "support": {
       "ticket_editor": "https://sigma-zendesk-iframe.now.sh/"
     }
   },
   "version": "1.0",
-  "frameworkVersion": "2.0",
-  "domainWhitelist": ["slingshow.com, localhost:3001"],
-  "parameters": [
-    {
-      "name": "secret",
-      "type": "text",
-      "secure": false,
-      "default": "The Experimental Prototype Community Of Tomorrow"
-    }
-  ]
+  "frameworkVersion": "2.0"
 }

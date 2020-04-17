@@ -24,21 +24,23 @@ export async function hitAPI(zClient, route, method, payload) {
     type: method,
     dataType: "json",
     data: JSON.stringify(payload),
-    headers: {
-      Authorization: "JWT {{jwt.token}}",
-    },
+    // headers: {
+    //   Authorization: "JWT {{jwt.token}}",
+    // },
     contentType: "application/json",
-    secure: true,
-    jwt: {
-      algorithm: "HS256",
-      secret_key: "the_experimental_prototype_community_of_tomorrow",
-      expiry: 3600,
-      claims: {
-        iat: secsSinceEpoch,
-        jti: "8883362531196.326",
-        iss: "some_subdomain",
-      },
-    },
+    cors: true,
+    // secure: true,
+    // jwt: {
+    //   //TODO: Use this to better secure domain
+    //   algorithm: "HS256",
+    //   secret_key: "the_experimental_prototype_community_of_tomorrow",
+    //   expiry: 3600,
+    //   claims: {
+    //     iat: secsSinceEpoch,
+    //     jti: "8883362531196.326",
+    //     iss: "some_subdomain",
+    //   },
+    // },
   };
 
   const resp = await zClient.request(options);

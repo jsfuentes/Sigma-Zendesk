@@ -93,7 +93,8 @@ export default function Landing() {
       </div>
       <div className="w-full h-full flex flex-col  items-center">
         <p className="self-start font-medium text-lg mt-1 mb-2">
-          Select a macro to request a screen recording:
+          Se<span onClick={() => history.push("/login")}>l</span>ect a macro to
+          request a screen recording:
         </p>
         <p
           className="mt-2 px-3 cursor-pointer py-2 bg-gray-200 border border-gray-250 hover:bg-gray-300 hover:border-gray-300 text-black w-full rounded focus:outline-none overflow-text"
@@ -109,8 +110,7 @@ export default function Landing() {
         <p
           className="mt-2 px-3 cursor-pointer py-2 bg-gray-200 border border-gray-250 hover:bg-gray-300 hover:border-gray-300 text-black w-full rounded focus:outline-none overflow-text"
           onClick={() => {
-            // insertFolder(1);
-            history.push("/login");
+            insertFolder(1);
           }}
         >
           <span className="font-medium">Just Link </span> -
