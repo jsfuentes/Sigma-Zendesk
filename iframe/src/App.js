@@ -17,14 +17,14 @@ export default function App() {
   const history = useHistory();
   const location = useLocation();
 
-  debug(location);
+  debug("App Location", location);
   useEffect(() => {
     async function f() {
       debug("Outer F", location.search, ZAFClient);
       //ZAFClient inits with query paramaeters that are only available on the initial load so store them and then use them for future redirects
       if (location.search === "") {
-        const app_guid = await localStorage.getItem("app_guid");
-        const origin = await localStorage.getItem("origin");
+        const app_guid = localStorage.getItem("app_guid");
+        const origin = localStorage.getItem("origin");
         const newUrl =
           location.pathname +
           "?" +
@@ -37,8 +37,8 @@ export default function App() {
         const client = ZAFClient.init();
         client.invoke("resize", size);
         setZClient(client);
-        await localStorage.setItem("app_guid", client._appGuid);
-        await localStorage.setItem("origin", client._origin);
+        localStorage.setItem("app_guid", client._appGuid);
+        localStorage.setItem("origin", client._origin);
         debug("Parameters found, storing in local storage");
       }
     }

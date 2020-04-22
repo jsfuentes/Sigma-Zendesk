@@ -9,42 +9,63 @@ import { axios, hitAPI } from "utils.js";
 const debug = require("debug")("app:pages:Oauth");
 
 export default function Oauth() {
+  const [error, setError] = useState(null);
   const { zClient } = useContext(ZClientContext);
   const history = useHistory();
-  debug("Oauth");
 
   useEffect(() => {
     async function f() {
-      debug("OAUTH RUNNING");
+      debug("Oauth f");
       if (!zClient) return;
-      debug("THERE IS A CLIENT IN OAUTH");
 
       const zResp = await zClient.get("currentUser");
       const user = zResp.currentUser;
       const domain = zClient._origin;
 
       const oauthRaw = window.location.hash;
-      debug("OAUTH RAW", { oauthRaw });
       const oauth = queryString.parse(oauthRaw);
       const payload = {
         ...oauth,
         user_id: user.id,
         domain,
       };
-      debug("OAUTH Payload", { payload });
-      const resp = await hitAPI(
-        //TODO: Properly handle this error
-        zClient,
-        "/api/user/login/zendesk",
-        "POST",
-        payload
-      );
-      debug("POST ZENDESK resp", resp);
+      debug("OAUTH Payload", payload);
+      localStorage.setItem("access_token", oauth.access_token);
+
+      try {
+        const resp = await hitAPI(
+          //TODO: Properly handle this error
+          zClient,
+          "/api/user/login/zendesk",
+          "POST",
+          payload
+        );
+        debug("POST ZENDESK resp", resp);
+      } catch (err) {
+        debug("Catch err and set err");
+        setError(err);
+        console.error(err);
+        return;
+      }
+
       history.push("/");
     }
 
     f();
   }, [zClient, history]);
+
+  if (error)
+    return (
+      <div className="w-screen h-screen flex justify-center items-center flex-col">
+        Problem logging in, please contact Slingshow Support or{" "}
+        <span
+          className="font-semibold cursor-pointer"
+          onClick={() => history.push("/login")}
+        >
+          Try Again
+        </span>
+      </div>
+    );
 
   return <Loading />;
 }

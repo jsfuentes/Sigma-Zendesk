@@ -17,7 +17,7 @@ export default function Login() {
     const payload = {
       response_type: "token",
       redirect_uri: `${conf.get("CLIENT_URL")}/oauth`,
-      client_id: "zdg-slingshow",
+      client_id: conf.get("OAUTH_CLIENT"),
       scope: "tickets:read tickets:write users:read",
       // state,
     };

@@ -3,8 +3,7 @@ import { useHistory } from "react-router-dom";
 import * as Sentry from "@sentry/browser";
 
 import ZClientContext from "../ZClientContext.js";
-import conf from "conf";
-import { axios, hitAPI } from "utils.js";
+import { hitAPI } from "utils.js";
 import Logo from "components/Logo";
 const debug = require("debug")("app:pages:Landing");
 
@@ -12,7 +11,6 @@ export default function Landing() {
   const { zClient } = useContext(ZClientContext);
   const [user, setUser] = useState(null);
   const history = useHistory();
-  debug("Landing");
 
   useEffect(() => {
     if (!zClient) {
@@ -24,9 +22,6 @@ export default function Landing() {
     });
 
     zClient.on("pane.activated", () => debug("PANE ACTIVATED"));
-    // zClient.metadata().then((data) => {
-    //   debug("METADATA", data);
-    // });
   }, [history, zClient]);
 
   useEffect(() => {
@@ -38,15 +33,14 @@ export default function Landing() {
             email: user.email,
           });
         } catch (err) {
-          if (err.response && err.response.status !== 401) {
-            Sentry.captureException(err);
-            debug("Unexpected error loggin in", err);
-          } else {
-            debug("Unauthorized please login");
-            console.error(err);
+          Sentry.captureException(err);
+          console.error(err);
+        } finally {
+          if (!returnedUser) {
+            debug("No zendesk user found");
+            history.push("/login");
+            return;
           }
-          history.push("/login");
-          return;
         }
 
         debug("Me Zendesk", returnedUser);
@@ -61,12 +55,11 @@ export default function Landing() {
       return;
     }
 
-    debug("GET NEW SLINGSHOW LINK");
     const zResp2 = await zClient.get("ticket");
     const ticket = zResp2.ticket;
     const payload = { currentUser: user, zendesk_ticket_id: ticket.id };
 
-    debug("DATA", payload);
+    debug("Getting new slingshow link with", payload);
     const folder = await hitAPI(
       zClient,
       `/api/folder/zendesk`,
